@@ -1,0 +1,30 @@
+version: '3.2'
+services:
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - type: mount
+        source: ./db_persist
+        target: /data/db
+      
+  flask:
+    build:
+      context: .
+      dockerfile: dockerfile_flask
+    volumes:
+    - ./api:/app
+    depends_on: 
+    - mongo
+
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfile_nginx
+    volumes:
+    - ./web:/data/www
+    ports:
+    - 8080:80
+    depends_on: 
+    - flask
+      
