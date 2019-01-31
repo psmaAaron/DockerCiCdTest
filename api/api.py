@@ -1,16 +1,15 @@
 import json
+from flask import Blueprint
 
-from flask import Flask
- 
-app = Flask(__name__)
+api_bp = Blueprint('api', __name__, url_prefix='/api')
 
-@app.route('/api')
+@api_bp.route('/')
 def welcome_api():
     return "Welcome to the api!"
 
-@app.route('/api/getPoints')
+@api_bp.route('/getPoints')
 def get_points():
-    sample_geojson_point = {
+    sample_geojson_point = [{
       "type": "Feature",
       "properties": {
         "dttm": 1548968278,
@@ -24,9 +23,7 @@ def get_points():
           58.26328705248601
         ]
       }
-    }
+    }]
 
     return json.dumps(sample_geojson_point)
  
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
