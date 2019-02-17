@@ -1,12 +1,7 @@
 version: '3.2'
 services:
-
   mongo:
     image: mongo:latest
-    volumes:
-      - type: mount
-        source: ./db_persist
-        target: /data/db
       
   flask:
     build:

@@ -1,20 +1,31 @@
 import json
+
 from flask import Blueprint
+from mongo_db import mongo
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 @api_bp.route('/')
 def welcome_api():
-    return "Welcome to the api!"
+    return "Welcome to the api!4444"
 
 @api_bp.route('/getPoints')
 def get_points():
-    sample_geojson_point = [{
+  result = []
+  for x in mongo.db.points.find({}, {'_id': False}):
+    print(x)
+    result.append(x)
+  return json.dumps(result)
+ 
+
+@api_bp.route('/add_point')
+def add_point():
+  sample_geojson_point = {
       "type": "Feature",
       "properties": {
         "dttm": 1548968278,
         "user": "Aaron",
-        "message": "Single Point Test"
+        "message": "Dynamic Single Point Test"
       },
       "geometry": {
         "type": "Point",
@@ -23,7 +34,8 @@ def get_points():
           -35.321393219330126
         ]
       }
-    }]
+    }
+    
+  mongo.db.points.insert_one(sample_geojson_point)
 
-    return json.dumps(sample_geojson_point)
- 
+  return('{"message" : "ok!"}')
