@@ -18,7 +18,7 @@ def get_points():
   return json.dumps(result)
  
 
-@api_bp.route('/add_point')
+@api_bp.route('/addPoint')
 def add_point():
   sample_geojson_point = {
       "type": "Feature",
