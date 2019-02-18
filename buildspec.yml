@@ -4,7 +4,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo.Logging in to Amazon ECR...
+      - echo "Logging in to Amazon ECR..."
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - FLASK_REPOSITORY_URI=167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask
@@ -13,8 +13,7 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Docker images...
+      - echo "Building the Docker images..."
       - docker build -f dockerfile_flask-prod .
       - docker tag dockerfile_flask-prod:latest $FLASK_REPOSITORY_URI:latest
       - docker push $FLASK_REPOSITORY_URI:latest
