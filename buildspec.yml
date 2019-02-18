@@ -18,11 +18,11 @@ phases:
     commands:
       - echo "Building the Docker images..."
       - docker build -f dockerfile_flask-prod .
-      - docker tag dockerfile_flask-prod:latest $FLASK_REPOSITORY_URI:latest
-      - docker push $FLASK_REPOSITORY_URI:latest
+      - docker tag dockerfile_flask-prod:$IMAGE_TAG $FLASK_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $FLASK_REPOSITORY_URI:$IMAGE_TAG
       - docker build -f dockerfile_nginx .
-      - docker tag dockerfile_nginx:latest $NGINX_REPOSITORY_URI:latest
-      - docker push $NGINX_REPOSITORY_URI:latest
+      - docker tag dockerfile_nginx:$IMAGE_TAG $NGINX_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $NGINX_REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo "Build completed"
