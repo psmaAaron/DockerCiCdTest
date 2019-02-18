@@ -13,6 +13,7 @@ phases:
     commands:
       - echo "Logging in to Amazon ECR..."
       - aws --version
+      - printenv
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
   build:
     commands:
