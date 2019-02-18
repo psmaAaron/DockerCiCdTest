@@ -15,7 +15,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: dockerfile_nginx
+      dockerfile: dockerfile_nginx-dev
     volumes:
     - ./web:/data/www
     ports:
