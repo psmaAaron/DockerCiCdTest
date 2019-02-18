@@ -6,7 +6,7 @@ services:
   flask:
     build:
       context: .
-      dockerfile: dockerfile_flask
+      dockerfile: dockerfile_flask-dev
     volumes:
     - ./api:/app
     depends_on: 

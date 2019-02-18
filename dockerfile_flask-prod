@@ -1,0 +1,21 @@
+# dockerfile_flask
+FROM python:3.6.4-stretch
+
+# install system packages
+RUN apt-get update \
+    && apt-get install -y \
+      python3-dev \
+      unzip
+
+# install python packages
+RUN mkdir /install
+COPY ./requirements.txt /install
+RUN pip install -r /install/requirements.txt
+
+# Copy working files
+RUN mkdir /app
+COPY ./api/ /app
+
+WORKDIR /app
+
+CMD [ "uwsgi", "--ini", "app.ini" ]

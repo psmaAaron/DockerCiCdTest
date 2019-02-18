@@ -1,0 +1,25 @@
+version: '3.2'
+services:
+  mongo:
+    image: mongo:latest
+      
+  flask:
+    build:
+      context: .
+      dockerfile: dockerfile_flask-prod
+    volumes:
+    - ./api:/app
+    depends_on: 
+    - mongo
+
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfile_nginx
+    volumes:
+    - ./web:/data/www
+    ports:
+    - 80:80
+    depends_on: 
+    - flask
+      
