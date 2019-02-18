@@ -18,7 +18,7 @@ phases:
       - docker build -f dockerfile_flask-prod -t dockerfile_flask .
       - docker tag dockerfile_flask:latest 167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask:latest
       - docker push 167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask:latest
-      - docker build -f dockerfile_nginx 0t dockerfile_nginx .
+      - docker build -f dockerfile_nginx -t dockerfile_nginx .
       - docker tag dockerfile_nginx:latest 167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-nginx:latest
       - docker push 167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-nginx:latest
   post_build:
