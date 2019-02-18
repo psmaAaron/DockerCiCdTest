@@ -7,7 +7,7 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 @api_bp.route('/')
 def welcome_api():
-    return "Welcome to the api!4444"
+    return "Welcome to the api!"
 
 @api_bp.route('/getPoints')
 def get_points():
