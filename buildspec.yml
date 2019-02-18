@@ -3,10 +3,10 @@ version: 0.2
 
 env:
   variables:
-      - FLASK_REPOSITORY_URI: "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask"
-      - NGINX_REPOSITORY_URI: "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-nginx"
-      - COMMIT_HASH: "$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)"
-      - IMAGE_TAG: "${COMMIT_HASH:=latest}"
+      FLASK_REPOSITORY_URI: "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask"
+      NGINX_REPOSITORY_URI: "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-nginx"
+      COMMIT_HASH: "$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)"
+      IMAGE_TAG: "${COMMIT_HASH:=latest}"
 
 phases:
   pre_build:
