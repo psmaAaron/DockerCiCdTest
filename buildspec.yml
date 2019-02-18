@@ -15,10 +15,12 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker images...
-      - docker build -f dockerfile_flask-prod -t $FLASK_REPOSITORY_URI:latest .
-      - docker tag $FLASK_REPOSITORY_URI:latest $FLASK_REPOSITORY_URI:$IMAGE_TAG
-      - docker build -f dockerfile_nginx -t $NGINX_REPOSITORY_URI:latest .
-      - docker tag $NGINX_REPOSITORY_URI:latest $NGINX_REPOSITORY_URI:$IMAGE_TAG
+      - docker build -f dockerfile_flask-prod .
+      - docker tag dockerfile_flask-prod:latest $FLASK_REPOSITORY_URI:latest
+      - docker push $FLASK_REPOSITORY_URI:latest
+      - docker build -f dockerfile_nginx .
+      - docker tag dockerfile_nginx:latest $NGINX_REPOSITORY_URI:latest
+      - docker push $NGINX_REPOSITORY_URI:latest
   post_build:
     commands:
       - echo "Build completed"
