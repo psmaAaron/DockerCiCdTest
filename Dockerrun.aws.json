@@ -1,0 +1,35 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+          "name": "mongo",
+          "image": "mongo:latest",
+          "essential": true,
+          "memory": 128
+        },
+        {
+          "name": "flask",
+          "image": "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-flask",
+          "essential": true,
+          "memory": 128,
+          "links": [
+            "mongo"
+          ]
+        },
+        {
+          "name": "nginx",
+          "image": "167857347865.dkr.ecr.ap-southeast-2.amazonaws.com/docker-cicd-nginx",
+          "essential": true,
+          "memory": 128,
+          "portMappings": [
+            {
+              "hostPort": 80,
+              "containerPort": 80
+            }
+          ],
+          "links": [
+            "flask"
+          ]
+        }
+      ]
+  }
