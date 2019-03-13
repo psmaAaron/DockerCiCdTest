@@ -1,5 +1,7 @@
 accessToken = 'pk.eyJ1IjoicHNtYWFhcm9uIiwiYSI6ImNqb25kMjcyaDE2am8zd2xzMnI4b2djeWwifQ.zrCz93IDztoB1Yq6ZBO1cw';
 
+let layerGroup = L.layerGroup();
+
 let loadMap = () => {
     var map = new L.map('map');
     map.setView([-27.3717673, 135.3515625], 4);
@@ -10,6 +12,7 @@ let loadMap = () => {
         id: 'mapbox.streets',
         accessToken: accessToken
     }).addTo(map);
+    layerGroup.addTo(map);
     return map;
 }
 
@@ -19,6 +22,7 @@ let populateMap = (map) => {
         url: "/api/point",
         dataType: "json",
         success: function (response) {
+            layerGroup.clearLayers();
             response.forEach(point => {
                 let p = L.geoJSON(point)
 
@@ -36,7 +40,7 @@ let populateMap = (map) => {
                 );
 
                 p.bindPopup(popup.html());
-                p.addTo(map);
+                p.addTo(layerGroup);
 
             });
         }
@@ -45,6 +49,9 @@ let populateMap = (map) => {
 
 let map = loadMap();
 populateMap(map);
+window.setInterval(function(){
+    populateMap(map);
+  }, 200);
 
 map.on('click', (e) => {
     $.ajax({
